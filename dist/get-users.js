@@ -10,24 +10,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const client_1 = require("@prisma/client");
-const prisma = new client_1.PrismaClient({ log: ["info", "query"] });
+const prisma = new client_1.PrismaClient();
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        // ... you will write your Prisma Client queries here
-        yield prisma.user.create({
-            data: {
-                email: "sunil@gmail.com",
-                name: "Sunil",
+        // const users = await prisma.user.findMany({});
+        // console.log(users);
+        const user = yield prisma.user.findUnique({
+            where: {
+                id: 1,
+            },
+            include: {
+                posts: true,
             },
         });
+        console.log(user);
     });
 }
 main();
-//   .then(async () => {
-//     await prisma.$disconnect();
-//   })
-//   .catch(async (e) => {
-//     console.error(e);
-//     await prisma.$disconnect();
-//     process.exit(1);
-//   });
